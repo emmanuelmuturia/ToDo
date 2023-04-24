@@ -16,10 +16,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.todo.datalayer.ToDo
 
 @Composable
-fun HomeScreen(toDoViewModel: ToDoViewModel) {
+fun HomeScreen(toDoViewModel: ToDoViewModel = viewModel()) {
 
     val toDoList by toDoViewModel.toDoState.collectAsState()
 

@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.todo.datalayer.ToDo
@@ -42,7 +43,6 @@ fun NewToDo(navController: NavHostController) {
             )
         }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done))
         NewButton(onClick = {
-            toDoViewModel.addToDo(toDo = ToDo(id = 0, title = "Default", description = "This is a default value..."))
             toDoViewModel.addToDo(toDo = ToDo(id = 0, title = toDoTitle, description = toDoDescription))
             navController.popBackStack(Routes.Home.name, inclusive = false)
 

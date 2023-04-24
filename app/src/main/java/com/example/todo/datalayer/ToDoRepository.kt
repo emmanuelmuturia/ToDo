@@ -13,7 +13,6 @@ class ToDoRepository(private val toDoDAO: ToDoDAO) {
     fun addToDo(toDo: ToDo) {
         coroutineScope.launch(Dispatchers.IO) {
             toDoDAO.insertToDo(toDo = toDo)
-            getToDo()
         }
     }
 
