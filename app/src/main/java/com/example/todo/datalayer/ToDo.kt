@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "myToDo")
 data class ToDo(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "toDoId")
     val id: Int = 0,
     @ColumnInfo(name = "toDoTitle")

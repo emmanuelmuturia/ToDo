@@ -43,7 +43,7 @@ fun NewToDo(navController: NavHostController) {
             )
         }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done))
         NewButton(onClick = {
-            toDoViewModel.addToDo(toDo = ToDo(id = 0, title = toDoTitle, description = toDoDescription))
+            toDoViewModel.addToDo(toDo = ToDo(title = toDoTitle, description = toDoDescription))
             navController.popBackStack(Routes.Home.name, inclusive = false)
 
         }, text = "Add")
