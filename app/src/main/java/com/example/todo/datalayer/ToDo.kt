@@ -12,5 +12,5 @@ data class ToDo(
     @ColumnInfo(name = "toDoTitle")
     val title: String,
     @ColumnInfo(name = "toDoDescription")
-    val description: String?
+    val description: String
 )

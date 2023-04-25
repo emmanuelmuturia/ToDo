@@ -37,6 +37,11 @@ class ToDoViewModel @Inject constructor(app: Application) : AndroidViewModel(app
         toDoRepository.addToDo(toDo = toDo)
     }
 
+
+    fun updateToDo(toDo: ToDo) {
+        toDoRepository.updateToDo(toDo = toDo)
+    }
+
     fun deleteToDo() {
         toDoRepository.deleteToDo()
     }

@@ -16,6 +16,12 @@ class ToDoRepositoryImpl(private val toDoDAO: ToDoDAO) : ToDoRepository {
         }
     }
 
+    override fun updateToDo(toDo: ToDo) {
+        coroutineScope.launch(Dispatchers.IO) {
+            toDoDAO.updateToDo(toDo = toDo)
+        }
+    }
+
 
     override suspend fun getToDo(): Flow<List<ToDo>> {
         return withContext(Dispatchers.IO) {

@@ -23,11 +23,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.todo.navigation.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ToDoApp(navController: NavHostController) {
+fun ToDoApp(navController: NavHostController = rememberNavController()) {
 
     val toDoViewModel: ToDoViewModel = viewModel()
 
@@ -72,7 +73,7 @@ fun ToDoApp(navController: NavHostController) {
                 .padding(it),
             color = MaterialTheme.colorScheme.background
         ) {
-            HomeScreen(toDoViewModel = toDoViewModel)
+            HomeScreen(toDoViewModel = toDoViewModel, navController = navController)
         }
     }
 }

@@ -6,13 +6,15 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.todo.datalayer.ToDo
+import com.example.todo.uilayer.EditToDo
 import com.example.todo.uilayer.HomeScreen
 import com.example.todo.uilayer.NewToDo
 import com.example.todo.uilayer.ToDoApp
 import com.example.todo.uilayer.ToDoViewModel
 
 @Composable
-fun ToDoNavHost(navController: NavHostController) {
+fun ToDoNavHost(navController: NavHostController, toDo: ToDo) {
 
     NavHost(navController = navController, startDestination = Routes.Home.name) {
         composable(route = Routes.Home.name) {
@@ -21,6 +23,10 @@ fun ToDoNavHost(navController: NavHostController) {
 
         composable(route = Routes.Add.name) {
             NewToDo(navController = navController)
+        }
+
+        composable(route = Routes.Edit.name) {
+            EditToDo(navController = navController, toDo = toDo)
         }
     }
 
