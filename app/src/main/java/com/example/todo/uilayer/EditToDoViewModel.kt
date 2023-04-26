@@ -30,10 +30,10 @@ class EditToDoViewModel @Inject constructor(app: Application, savedStateHandle: 
     var toDo by mutableStateOf<ToDo?>(null)
         private set
 
-    var toDoTitle by mutableStateOf(value = _toDoState.value?.title)
+    var toDoTitle by mutableStateOf("")
         private set
 
-    var toDoDescription by mutableStateOf(value = _toDoState.value?.description)
+    var toDoDescription by mutableStateOf("")
         private set
 
     private val toDoId = savedStateHandle.get<String>("id")
@@ -46,17 +46,31 @@ class EditToDoViewModel @Inject constructor(app: Application, savedStateHandle: 
         viewModelScope.launch {
             if(toDoId != null) {
                 toDo = toDoRepository.getToDo(id = toDoId.toInt())
+                toDoTitle = toDo!!.title ?: ""
+                toDoDescription = toDo!!.description ?: ""
             }
         }
     }
 
-    private fun updateToDo(toDo: ToDo) {
-        viewModelScope.launch {
-            _toDoState.value?.copy(
-                title = toDoTitle.toString(),
-                description = toDoDescription.toString()
-            )
-            toDoRepository.updateToDo(toDo)
+
+    fun updateTitle(title: String) {
+        toDoTitle = title
+    }
+
+
+    fun updateDescription(description: String) {
+        toDoDescription = description
+    }
+
+    fun updateToDo() {
+        if (toDo != null) {
+            viewModelScope.launch {
+                val update = toDo!!.copy(
+                    title = toDoTitle,
+                    description = toDoDescription
+                )
+                toDoRepository.updateToDo(toDo = update)
+            }
         }
     }
 

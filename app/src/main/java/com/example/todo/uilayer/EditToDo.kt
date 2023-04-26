@@ -23,21 +23,20 @@ import com.example.todo.navigation.Routes
 fun EditToDo(navController: NavHostController) {
 
     val editToDoViewModel: EditToDoViewModel = viewModel()
-    val myEditToDoState by editToDoViewModel.toDoState.collectAsState()
 
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        TheEditToDo(value = , onValueChanged = { = it}, label = { Text(text = "Enter title...") }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next))
-        TheEditToDo(value = toDoViewModel.toDoDescription, onValueChanged = {toDoViewModel.toDoDescription = it}, label = {
+        TheEditToDo(value = editToDoViewModel.toDoTitle, onValueChanged = { editToDoViewModel.updateTitle(title = it) }, label = { Text(text = "Enter title...") }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next))
+        TheEditToDo(value = editToDoViewModel.toDoDescription, onValueChanged = { editToDoViewModel.updateDescription(description = it) }, label = {
             Text(
                 text = "Enter description..."
             )
         }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done))
         EditSaveButton(onClick = {
-
+            editToDoViewModel.updateToDo()
             navController.popBackStack(Routes.Home.name, inclusive = false)
 
         }, text = "Save")

@@ -31,7 +31,7 @@ fun HomeScreen(toDoViewModel: ToDoViewModel = viewModel(), navController: NavHos
         items(toDoList) { myToDo ->
             ToDoCard(toDoItems = myToDo) {
                 navController.navigate(
-                    Routes.Edit.name.plus("?id=").plus(myToDo.toString())
+                    Routes.Edit.name.plus("?id=").plus(myToDo.id)
                 )
             }
         }
