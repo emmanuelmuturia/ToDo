@@ -22,10 +22,14 @@ class ToDoRepositoryImpl(private val toDoDAO: ToDoDAO) : ToDoRepository {
         }
     }
 
+    override suspend fun getToDo(id: Int): ToDo {
+        return toDoDAO.getToDo(id = id)
+    }
 
-    override suspend fun getToDo(): Flow<List<ToDo>> {
+
+    override suspend fun getAllToDo(): Flow<List<ToDo>> {
         return withContext(Dispatchers.IO) {
-            toDoDAO.getToDo()
+            toDoDAO.getAllToDo()
         }
     }
 

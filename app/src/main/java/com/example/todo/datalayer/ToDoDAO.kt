@@ -16,8 +16,11 @@ interface ToDoDAO {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateToDo(toDo: ToDo)
 
+    @Query("SELECT * FROM myToDo where toDoId = :id")
+    suspend fun getToDo(id: Int) : ToDo
+
     @Query("SELECT * FROM myToDo ORDER BY toDoId ASC")
-    fun getToDo(): Flow<List<ToDo>>
+    fun getAllToDo(): Flow<List<ToDo>>
 
     @Query("DELETE FROM myToDo")
     suspend fun deleteToDo()

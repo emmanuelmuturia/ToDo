@@ -11,36 +11,33 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.todo.datalayer.ToDo
 import com.example.todo.navigation.Routes
 
 @Composable
-fun EditToDo(navController: NavHostController, toDo: ToDo) {
+fun EditToDo(navController: NavHostController) {
 
-    val toDoViewModel: ToDoViewModel = viewModel()
+    val editToDoViewModel: EditToDoViewModel = viewModel()
+    val myEditToDoState by editToDoViewModel.toDoState.collectAsState()
 
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        TheEditToDo(value = toDoViewModel.toDoTitle, onValueChanged = {toDoViewModel.toDoTitle = it}, label = { Text(text = "Enter title...") }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next))
+        TheEditToDo(value = , onValueChanged = { = it}, label = { Text(text = "Enter title...") }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next))
         TheEditToDo(value = toDoViewModel.toDoDescription, onValueChanged = {toDoViewModel.toDoDescription = it}, label = {
             Text(
                 text = "Enter description..."
             )
         }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done))
         EditSaveButton(onClick = {
-            toDoViewModel.updateToDo()
+
             navController.popBackStack(Routes.Home.name, inclusive = false)
 
         }, text = "Save")

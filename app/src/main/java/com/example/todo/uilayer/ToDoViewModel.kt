@@ -3,14 +3,12 @@ package com.example.todo.uilayer
 import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.todo.datalayer.ToDo
-import com.example.todo.datalayer.ToDoDatabase
 import com.example.todo.datalayer.ToDoModule
-import com.example.todo.datalayer.ToDoRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,16 +24,13 @@ class ToDoViewModel @Inject constructor(app: Application) : AndroidViewModel(app
     private val dao = ToDoModule.provideToDoDAO(database = database)
     private val toDoRepository = ToDoModule.provideRepository(dao = dao)
 
-    var toDoTitle by mutableStateOf("")
-
-    var toDoDescription by mutableStateOf("")
 
     private var _toDoState = MutableStateFlow<List<ToDo>>(emptyList())
     val toDoState: StateFlow<List<ToDo>> = _toDoState.asStateFlow()
 
     init {
         viewModelScope.launch {
-            toDoRepository.getToDo().collectLatest {
+            toDoRepository.getAllToDo().collectLatest {
                 _toDoState.value = it
             }
         }
@@ -43,15 +38,6 @@ class ToDoViewModel @Inject constructor(app: Application) : AndroidViewModel(app
 
     fun addToDo(toDo: ToDo) {
         toDoRepository.addToDo(toDo = toDo)
-    }
-
-
-    fun updateToDo() {
-        val myToDo = ToDo(
-            title = toDoTitle,
-            description = toDoDescription
-        )
-        toDoRepository.updateToDo(toDo = myToDo)
     }
 
     fun deleteToDo() {

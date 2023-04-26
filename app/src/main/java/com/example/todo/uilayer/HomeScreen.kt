@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.todo.datalayer.ToDo
 import com.example.todo.navigation.Routes
@@ -30,7 +29,11 @@ fun HomeScreen(toDoViewModel: ToDoViewModel = viewModel(), navController: NavHos
 
     LazyColumn {
         items(toDoList) { myToDo ->
-            ToDoCard(toDoItems = myToDo, navController = navController)
+            ToDoCard(toDoItems = myToDo) {
+                navController.navigate(
+                    Routes.Edit.name.plus("?id=").plus(myToDo.toString())
+                )
+            }
         }
     }
 
@@ -38,9 +41,9 @@ fun HomeScreen(toDoViewModel: ToDoViewModel = viewModel(), navController: NavHos
 
 
 @Composable
-fun ToDoCard(toDoItems: ToDo, navController: NavHostController) {
+fun ToDoCard(toDoItems: ToDo, onClick: () -> Unit) {
     Card(
-        modifier = Modifier.clickable(onClick = { navController.navigate(Routes.Edit.name) }),
+        modifier = Modifier.clickable(onClick = onClick),
         elevation = CardDefaults.cardElevation(7.dp)
     ) {
         Column(
