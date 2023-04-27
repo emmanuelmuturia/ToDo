@@ -34,9 +34,9 @@ class ToDoRepositoryImpl(private val toDoDAO: ToDoDAO) : ToDoRepository {
     }
 
 
-    override suspend fun searchToDo(query: String): Flow<List<ToDo>> {
+    override suspend fun searchToDo(query: String): List<ToDo> {
         return withContext(Dispatchers.IO) {
-            toDoDAO.searchToDo(query = query)
+            toDoDAO.searchToDo(query = "%query%")
         }
     }
 

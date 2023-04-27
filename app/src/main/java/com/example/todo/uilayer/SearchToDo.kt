@@ -35,7 +35,7 @@ fun SearchScreen(toDoViewModel: ToDoViewModel = viewModel(), navController: NavH
     val toDoList by toDoViewModel.toDoState.collectAsState()
 
     LazyColumn {
-        items(toDoList) { myToDo ->
+        items(toDoList.filter { it.title == toDoViewModel.toDoQuery }) { myToDo ->
             Row(horizontalArrangement = Arrangement.Center) {
                 ToDoSearchCard(toDoItems = myToDo)
             }

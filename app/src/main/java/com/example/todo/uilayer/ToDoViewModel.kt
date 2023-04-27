@@ -21,7 +21,7 @@ class ToDoViewModel @Inject constructor(app: Application) : AndroidViewModel(app
 
     private val database = ToDoModule.provideToDoDatabase(context = app)
     private val dao = ToDoModule.provideToDoDAO(database = database)
-    val toDoRepository = ToDoModule.provideRepository(dao = dao)
+    private val toDoRepository = ToDoModule.provideRepository(dao = dao)
 
 
     private var _toDoState = MutableStateFlow<List<ToDo>>(emptyList())
@@ -41,9 +41,10 @@ class ToDoViewModel @Inject constructor(app: Application) : AndroidViewModel(app
         toDoRepository.addToDo(toDo = toDo)
     }
 
-    fun searchToDo() {
+    fun searchToDo(query: String) {
         viewModelScope.launch {
-
+            val result = toDoRepository.searchToDo(query = query)
+            _toDoState.value = result
         }
     }
 

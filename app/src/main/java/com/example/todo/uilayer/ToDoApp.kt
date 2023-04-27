@@ -47,7 +47,7 @@ fun ToDoApp(navController: NavHostController = rememberNavController()) {
                 Spacer(modifier = Modifier.width(3.dp))
                 Button(onClick = {
                     navController.navigate(Routes.Search.name)
-                    toDoViewModel.searchToDo()
+                    toDoViewModel.searchToDo(query = toDoViewModel.toDoQuery)
                 }) {
                     Text(text = "Search")
                 }
