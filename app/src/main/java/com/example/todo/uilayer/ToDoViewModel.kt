@@ -5,7 +5,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.todo.datalayer.ToDo
 import com.example.todo.datalayer.ToDoModule
@@ -22,11 +21,13 @@ class ToDoViewModel @Inject constructor(app: Application) : AndroidViewModel(app
 
     private val database = ToDoModule.provideToDoDatabase(context = app)
     private val dao = ToDoModule.provideToDoDAO(database = database)
-    private val toDoRepository = ToDoModule.provideRepository(dao = dao)
+    val toDoRepository = ToDoModule.provideRepository(dao = dao)
 
 
     private var _toDoState = MutableStateFlow<List<ToDo>>(emptyList())
     val toDoState: StateFlow<List<ToDo>> = _toDoState.asStateFlow()
+
+    var toDoQuery by mutableStateOf("")
 
     init {
         viewModelScope.launch {
@@ -38,6 +39,12 @@ class ToDoViewModel @Inject constructor(app: Application) : AndroidViewModel(app
 
     fun addToDo(toDo: ToDo) {
         toDoRepository.addToDo(toDo = toDo)
+    }
+
+    fun searchToDo() {
+        viewModelScope.launch {
+
+        }
     }
 
     fun deleteToDo() {

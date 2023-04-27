@@ -33,6 +33,13 @@ class ToDoRepositoryImpl(private val toDoDAO: ToDoDAO) : ToDoRepository {
         }
     }
 
+
+    override suspend fun searchToDo(query: String): Flow<List<ToDo>> {
+        return withContext(Dispatchers.IO) {
+            toDoDAO.searchToDo(query = query)
+        }
+    }
+
     override fun deleteToDo() {
         coroutineScope.launch(Dispatchers.IO) {
             toDoDAO.deleteToDo()

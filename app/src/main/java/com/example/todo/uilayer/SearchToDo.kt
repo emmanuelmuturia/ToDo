@@ -30,18 +30,14 @@ import com.example.todo.datalayer.ToDo
 import com.example.todo.navigation.Routes
 
 @Composable
-fun HomeScreen(toDoViewModel: ToDoViewModel = viewModel(), navController: NavHostController) {
+fun SearchScreen(toDoViewModel: ToDoViewModel = viewModel(), navController: NavHostController) {
 
     val toDoList by toDoViewModel.toDoState.collectAsState()
 
     LazyColumn {
         items(toDoList) { myToDo ->
             Row(horizontalArrangement = Arrangement.Center) {
-                ToDoCard(toDoItems = myToDo) {
-                    navController.navigate(
-                        Routes.Edit.name.plus("?id=").plus(myToDo.id)
-                    )
-                }
+                ToDoSearchCard(toDoItems = myToDo)
             }
         }
     }
@@ -50,9 +46,8 @@ fun HomeScreen(toDoViewModel: ToDoViewModel = viewModel(), navController: NavHos
 
 
 @Composable
-fun ToDoCard(toDoItems: ToDo, onClick: () -> Unit) {
+fun ToDoSearchCard(toDoItems: ToDo) {
     Card(
-        modifier = Modifier.clickable(onClick = onClick),
         elevation = CardDefaults.cardElevation(7.dp)
     ) {
         Column(

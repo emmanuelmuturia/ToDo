@@ -22,6 +22,9 @@ interface ToDoDAO {
     @Query("SELECT * FROM myToDo ORDER BY toDoId ASC")
     fun getAllToDo(): Flow<List<ToDo>>
 
+    @Query("SELECT * FROM myToDo WHERE toDoTitle LIKE '%' || :query || '%' OR toDoDescription LIKE '%' || :query || '%'")
+    fun searchToDo(query: String): Flow<List<ToDo>>
+
     @Query("DELETE FROM myToDo")
     suspend fun deleteToDo()
 
