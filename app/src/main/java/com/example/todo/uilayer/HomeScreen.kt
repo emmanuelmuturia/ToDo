@@ -28,14 +28,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.todo.datalayer.ToDo
 import com.example.todo.navigation.Routes
+import kotlinx.coroutines.flow.collect
 
 @Composable
 fun HomeScreen(toDoViewModel: ToDoViewModel = viewModel(), navController: NavHostController) {
 
-    val toDoList by toDoViewModel.toDoState.collectAsState()
+    val list by toDoViewModel.myToDoList.collectAsState(initial = listOf())
 
     LazyColumn {
-        items(toDoList) { myToDo ->
+        items(items = list) { myToDo ->
             Row(horizontalArrangement = Arrangement.Center) {
                 ToDoCard(toDoItems = myToDo) {
                     navController.navigate(

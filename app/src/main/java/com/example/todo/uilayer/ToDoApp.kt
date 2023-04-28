@@ -41,11 +41,13 @@ fun ToDoApp(navController: NavHostController = rememberNavController()) {
 
     val toDoViewModel: ToDoViewModel = viewModel()
 
+    val query by toDoViewModel.searchQuery.collectAsState()
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             Row() {
-                OutlinedTextField(value = , onValueChange = {  }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done))
+                OutlinedTextField(value = query, onValueChange = { toDoViewModel.updateQuery(str = it) }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done))
                 Spacer(modifier = Modifier.width(3.dp))
                 Button(onClick = {
 

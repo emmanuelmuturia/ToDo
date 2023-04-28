@@ -26,7 +26,7 @@ interface ToDoDAO {
     fun searchToDo(query: String) : Flow<List<ToDo>>
 
     @Query("SELECT * FROM myToDo WHERE toDoTitle LIKE '%' || :query || '%'")
-    fun filterTasks(query: String, filter: String) : Flow<List<ToDo>>
+    fun filterTasks(query: String) : Flow<List<ToDo>>
 
     @Query("DELETE FROM myToDo")
     suspend fun deleteToDo()

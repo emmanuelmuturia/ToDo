@@ -14,7 +14,7 @@ interface ToDoRepository {
 
     suspend fun searchTasks(query: String): Flow<List<ToDo>>
 
-    suspend fun filterTasks(query: String, filter: String): Flow<List<ToDo>>
+    suspend fun filterTasks(query: String): Flow<List<ToDo>>
 
     fun deleteToDo()
 

@@ -8,7 +8,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.todo.uilayer.EditToDo
 import com.example.todo.uilayer.NewToDo
-import com.example.todo.uilayer.SearchToDo
 import com.example.todo.uilayer.ToDoApp
 
 @Composable

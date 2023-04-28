@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,7 +30,29 @@ class ToDoViewModel @Inject constructor(app: Application) : AndroidViewModel(app
     private var _toDoState = MutableStateFlow<List<ToDo>>(emptyList())
     val toDoState: StateFlow<List<ToDo>> = _toDoState.asStateFlow()
 
-    var myToDoSearch by mutableStateOf("")
+    val searchQuery = MutableStateFlow("")
+    private val filterQuery = MutableStateFlow("all")
+
+    private val toDoList = searchQuery.combine(filterQuery) { query, filter ->
+        if (filter.equals("all", true))
+            toDoRepository.searchTasks(query = query).first()
+        else
+            toDoRepository.filterTasks(query).first()
+    }
+    val myToDoList get() = toDoList
+
+
+    fun updateQuery(str: String) {
+        viewModelScope.launch {
+            searchQuery.value = str
+        }
+    }
+
+    fun updateFilter(title: String) {
+        viewModelScope.launch {
+            filterQuery.value = title
+        }
+    }
 
     init {
         viewModelScope.launch {

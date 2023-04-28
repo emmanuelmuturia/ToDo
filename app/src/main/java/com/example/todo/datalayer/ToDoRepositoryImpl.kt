@@ -39,9 +39,9 @@ class ToDoRepositoryImpl(private val toDoDAO: ToDoDAO) : ToDoRepository {
         }
     }
 
-    override suspend fun filterTasks(query: String, filter: String): Flow<List<ToDo>> {
+    override suspend fun filterTasks(query: String): Flow<List<ToDo>> {
         return withContext(Dispatchers.IO) {
-            toDoDAO.filterTasks(query = query, filter = filter.uppercase())
+            toDoDAO.filterTasks(query = query)
         }
     }
 
