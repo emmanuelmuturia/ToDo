@@ -33,12 +33,18 @@ class ToDoRepositoryImpl(private val toDoDAO: ToDoDAO) : ToDoRepository {
         }
     }
 
-
-    override suspend fun searchToDo(query: String): List<ToDo> {
+    override suspend fun searchTasks(query: String): Flow<List<ToDo>> {
         return withContext(Dispatchers.IO) {
-            toDoDAO.searchToDo(query = "%query%")
+            toDoDAO.searchToDo(query = query)
         }
     }
+
+    override suspend fun filterTasks(query: String, filter: String): Flow<List<ToDo>> {
+        return withContext(Dispatchers.IO) {
+            toDoDAO.filterTasks(query = query, filter = filter.uppercase())
+        }
+    }
+
 
     override fun deleteToDo() {
         coroutineScope.launch(Dispatchers.IO) {

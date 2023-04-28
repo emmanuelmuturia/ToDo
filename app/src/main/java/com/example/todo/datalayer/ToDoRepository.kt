@@ -12,7 +12,9 @@ interface ToDoRepository {
 
     suspend fun getAllToDo(): Flow<List<ToDo>>
 
-    suspend fun searchToDo(query: String): List<ToDo>
+    suspend fun searchTasks(query: String): Flow<List<ToDo>>
+
+    suspend fun filterTasks(query: String, filter: String): Flow<List<ToDo>>
 
     fun deleteToDo()
 

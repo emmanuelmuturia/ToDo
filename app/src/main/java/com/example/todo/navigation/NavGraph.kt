@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.todo.uilayer.EditToDo
 import com.example.todo.uilayer.NewToDo
-import com.example.todo.uilayer.SearchScreen
+import com.example.todo.uilayer.SearchToDo
 import com.example.todo.uilayer.ToDoApp
 
 @Composable
@@ -28,10 +28,6 @@ fun ToDoNavHost(navController: NavHostController) {
             nullable = true
         })) {
             EditToDo(navController = navController)
-        }
-
-        composable(route = Routes.Search.name) {
-            SearchScreen(navController = navController)
         }
     }
 

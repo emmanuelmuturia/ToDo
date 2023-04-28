@@ -23,6 +23,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
@@ -43,11 +45,10 @@ fun ToDoApp(navController: NavHostController = rememberNavController()) {
         modifier = Modifier.fillMaxSize(),
         topBar = {
             Row() {
-                OutlinedTextField(value = toDoViewModel.toDoQuery, onValueChange = { toDoViewModel.toDoQuery = it }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done))
+                OutlinedTextField(value = , onValueChange = {  }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done))
                 Spacer(modifier = Modifier.width(3.dp))
                 Button(onClick = {
-                    navController.navigate(Routes.Search.name)
-                    toDoViewModel.searchToDo(query = toDoViewModel.toDoQuery)
+
                 }) {
                     Text(text = "Search")
                 }
